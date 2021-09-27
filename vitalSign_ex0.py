@@ -14,7 +14,6 @@ update:
 '''
 import os
 txtPath = 'Record.txt'
-os.remove(txtPath)
 
 
 import serial
