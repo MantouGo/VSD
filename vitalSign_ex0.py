@@ -15,21 +15,30 @@ update:
 import serial
 import struct
 import datetime
-
+import csv
 import numpy as np
+import pandas as pd
 from mmWave import vitalsign
 
- 
+# 開啟輸入的csv file
+'''
+with open('output.csv', 'w', newline='') as csvfile:
+	# build csv 寫入器
+	vswriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+	# 寫入資料
+'''
+
 class globalV:
 	count = 0
 	hr = 0.0
 	br = 0.0
 	def __init__(self, count):
 		self.count = count
-		
-#UART initial
-
-try:    #jetson nano by chiu-chien-feng
+b_list = [] # breath list
+h_list = [] # heart list
+# UART initial
+#jetson nano by chiu-chien-feng
+try:
     port = serial.Serial("/dev/ttyTHS1",baudrate = 921600,timeout = 0.5)
 
 except KeyboardInterrupt:
@@ -59,12 +68,19 @@ def uartGetTLVdata(name):
 		(dck , vd, rangeBuf) = vts.tlvRead(False)
 		vs = vts.getHeader()
 		#vts.showHeader()
-		 
+
 		if dck:
 			ct = datetime.datetime.now()
 			gv.br = vd.breathingRateEst_FFT
 			gv.hr = vd.heartRateEst_FFT
-			 
+			h_list = gv.br
+			b_list = gv.hr
+			##vswriter.writerow(['breathingRateEst_FFT','heartRateEst_FFT'])
+
+			dict = {'breathingRateEst_FFT':h_list, 'heartRateEst_FFT':b_list,'FrameNumber':vs.frameNumber}
+			df = pd.DataFrame(dict)
+			df.to_csv('test.csv')
+
 			print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
@@ -78,7 +94,7 @@ def uartGetTLVdata(name):
 			'''
 			print("RangeBuf Length:{:d}".format(len(rangeBuf)))
 			print(rangeBuf)
-			
+
 
 uartGetTLVdata("VitalSign")
 
