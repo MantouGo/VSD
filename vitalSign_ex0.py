@@ -12,6 +12,11 @@ update:
 
 
 '''
+import os
+txtPath = 'Record.txt'
+os.remove(txtPath)
+
+
 import serial
 import struct
 import datetime
@@ -79,9 +84,11 @@ def uartGetTLVdata(name):
 
 			##dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
 			##df = pd.DataFrame(dict)
-			
+
 			##print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
-			
+			# ----- 記錄測量結果 -----#
+			with open(txtPath, 'a') as f:
+				f.write("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
 			'''
 			print("EST FFT:{0:.4f}".format(vd.heartRateEst_FFT))
@@ -95,8 +102,7 @@ def uartGetTLVdata(name):
 			##print(rangeBuf)
 
 uartGetTLVdata("VitalSign")
-print("--------------------------------------------------------------------\r\n")
-print(b_list)
+
 ##df.to_csv('test.csv')
 
 
