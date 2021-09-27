@@ -39,7 +39,7 @@ h_list = [] # heart list
 # UART initial
 #jetson nano by chiu-chien-feng
 try:
-    port = serial.Serial("/dev/ttyTHS1",baudrate = 921600,timeout = 0.5)
+	port = serial.Serial("/dev/ttyTHS1",baudrate = 921600,timeout = 0.5)
 
 except KeyboardInterrupt:
     print("Exiting Program")
@@ -73,13 +73,11 @@ def uartGetTLVdata(name):
 			ct = datetime.datetime.now()
 			gv.br = vd.breathingRateEst_FFT
 			gv.hr = vd.heartRateEst_FFT
-			h_list = gv.br
-			b_list = gv.hr
+			h_list.append(gv.br)
+			b_list.append(gv.hr)
 			##vswriter.writerow(['breathingRateEst_FFT','heartRateEst_FFT'])
 
-			dict = {'breathingRateEst_FFT':h_list, 'heartRateEst_FFT':b_list,'FrameNumber':vs.frameNumber}
-			df = pd.DataFrame(dict)
-			df.to_csv('test.csv')
+
 
 			print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			
@@ -95,8 +93,10 @@ def uartGetTLVdata(name):
 			print("RangeBuf Length:{:d}".format(len(rangeBuf)))
 			print(rangeBuf)
 
-
 uartGetTLVdata("VitalSign")
+dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
+df = pd.DataFrame(dict)
+df.to_csv('test.csv')
 
 
 
