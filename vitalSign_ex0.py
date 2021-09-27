@@ -79,7 +79,7 @@ def uartGetTLVdata(name):
 
 			##dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
 			##df = pd.DataFrame(dict)
-			print(b_list)
+			
 			##print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
