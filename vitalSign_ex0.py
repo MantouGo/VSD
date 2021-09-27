@@ -54,7 +54,7 @@ gv = globalV(0)
 
 vts = vitalsign.VitalSign(port)
 
- 
+## global df
 # UART : 50 ms
 def uartGetTLVdata(name):
 	print("mmWave: {:} example:".format(name))
@@ -77,9 +77,10 @@ def uartGetTLVdata(name):
 			b_list.append(gv.hr)
 			##vswriter.writerow(['breathingRateEst_FFT','heartRateEst_FFT'])
 
-
-
-			print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
+			##dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
+			##df = pd.DataFrame(dict)
+			print(b_list)
+			##print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
 			'''
@@ -90,14 +91,13 @@ def uartGetTLVdata(name):
 			print("Confi Heart O 4Hz:{0:.4f}".format(vd.confidenceMetricHeartOut_4Hz))
 			print("Confi Heart O xCorr:{0:.4f}".format(vd.confidenceMetricHeartOut_xCorr))
 			'''
-			print("RangeBuf Length:{:d}".format(len(rangeBuf)))
-			print(rangeBuf)
+			##print("RangeBuf Length:{:d}".format(len(rangeBuf)))
+			##print(rangeBuf)
 
 uartGetTLVdata("VitalSign")
-dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
-df = pd.DataFrame(dict)
-df.to_csv('test.csv')
-
+print("--------------------------------------------------------------------\r\n")
+print(b_list)
+##df.to_csv('test.csv')
 
 
 
