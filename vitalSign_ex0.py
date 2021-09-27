@@ -12,8 +12,8 @@ update:
 
 
 '''
-import os
-txtPath = 'Record.txt'
+#import os
+#txtPath = 'Record.txt'
 
 
 import serial
@@ -81,13 +81,13 @@ def uartGetTLVdata(name):
 			b_list.append(gv.hr)
 			##vswriter.writerow(['breathingRateEst_FFT','heartRateEst_FFT'])
 
-			##dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
-			##df = pd.DataFrame(dict)
 
 			##print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			# ----- 記錄測量結果 -----#
+			'''
 			with open(txtPath, 'a') as f:
 				f.write("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
+			'''
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
 			'''
 			print("EST FFT:{0:.4f}".format(vd.heartRateEst_FFT))
@@ -99,10 +99,13 @@ def uartGetTLVdata(name):
 			'''
 			##print("RangeBuf Length:{:d}".format(len(rangeBuf)))
 			##print(rangeBuf)
+	dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
+	df = pd.DataFrame(dict)
+	df.to_csv('test.csv')
 
 uartGetTLVdata("VitalSign")
 
-##df.to_csv('test.csv')
+
 
 
 
