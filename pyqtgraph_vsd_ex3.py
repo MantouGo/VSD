@@ -103,18 +103,17 @@ rp7  = np.zeros(64)
 #**********************************************
 # fft0: Breathing    fft1: Heart Rate (200points)
 #**********************************************
-'''
 p0 = win.addPlot()
 p0.setRange(xRange=[0,40],yRange=[0,2])
 p0.setLabel('bottom', 'Breathing Rate FFT(ft0)', 'bpm')
 br2t = np.linspace(0,600,100)
-curve_ft0 = p0.plot(ft0)
+curve_ft0 = p0.plot(ft0,False)
 
 p1 = win.addPlot()
 p1.setRange(xRange=[0,200],yRange=[0,2])
 p1.setLabel('bottom', 'Heart Rate FFT(ft1)', 'bpm')
 hr2t = np.linspace(0,600,100)
-curve_ft1 = p1.plot(ft1)
+curve_ft1 = p1.plot(ft1,False)
 
 ## Set up an animated arrow and text that track the curve
 # Breathing rate
@@ -131,7 +130,7 @@ text_hr_rt = pg.TextItem("", anchor=(0.5, 1.7),color = 'y')
 text_hr_rt.setParentItem(curvePoint_hr_rt)
 arrow1 = pg.ArrowItem(angle=270)
 arrow1.setParentItem(curvePoint_hr_rt)
-'''
+
 #*******************************
 
 
