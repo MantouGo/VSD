@@ -23,15 +23,10 @@ import csv
 import numpy as np
 import pandas as pd
 from mmWave import vitalsign
-# 開啟輸入的csv file
-'''
-with open('output.csv', 'w', newline='') as csvfile:
-	# build csv 寫入器
-	vswriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-	# 寫入資料
-'''
+
 b_list = [] # breath list
 h_list = [] # heart list
+t_list = [] # time list(ms)
 class globalV:
 	count = 0
 	hr = 0.0
@@ -75,26 +70,19 @@ def uartGetTLVdata(name):
 			ct = datetime.datetime.now()
 			gv.br = vd.breathingRateEst_FFT
 			gv.hr = vd.heartRateEst_FFT
-			h_list.append(round(gv.br, 4))
-			b_list.append(round(gv.hr, 4))
-			##vswriter.writerow(['breathingRateEst_FFT','heartRateEst_FFT'])
-			dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
+			h_list.append(round(gv.hr, 4))
+			b_list.append(round(gv.br, 4))
+			t_list.appemd(round(ct-pt,3))
+			# 紀錄CSV
+			dict = {'Heart Rate:': h_list, 'Breath Rate': b_list, 'Time': t_list}
 			df = pd.DataFrame(dict)
 			df.to_csv('test.csv')
-			print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
+			#
+			#print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
 			##print("RangeBuf Length:{:d}".format(len(rangeBuf)))
 			#print(rangeBuf)
-			'''
-				# ----- 記錄測量結果 -----#
-
-				with open(txtPath, 'a') as f:
-					f.write("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
-			'''
-		#else:
-
-
-
+		vs.frameNumber = 0 # 初始化
 uartGetTLVdata("VitalSign")
 
 
