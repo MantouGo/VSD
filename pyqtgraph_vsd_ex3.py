@@ -204,13 +204,13 @@ curve_cd = p6.plot(cd6)
 #######################################
 # range profile: Points= 64 points
 #######################################
-'''
+
 p7 = win.addPlot(colspan=1)
 p7.setLabel('bottom', 'Range Profile(rp7)', 'y:RCS x:cm')
 p7t = np.linspace(0.3,0.9,19)
 p7.setRange(xRange=[0.3,0.9])
 curve_rp = p7.plot(rp7)
-'''
+
 def update_indata():
 	global p6t,br0,hr1,maxlen,cd6,rp7
 	curve_cd.setData(p6t,cd6)
