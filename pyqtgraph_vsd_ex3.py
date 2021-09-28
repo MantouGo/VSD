@@ -13,7 +13,7 @@ import numpy as np
 import numpy.matlib 
 
 import serial
-#import Jetson.GPIO as GPIO
+import Jetson.GPIO as GPIO
 from mmWave import vitalsign
 import time
 import struct
@@ -27,10 +27,6 @@ from scipy import signal
 from PyQt5.QtGui import QPalette,QFont
 from PyQt5.QtWidgets import QLabel,QMainWindow
 from PyQt5.QtCore import Qt
-
-import os
-txtPath = 'Record.txt'
-os.remove(txtPath)
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -107,6 +103,7 @@ rp7  = np.zeros(64)
 #**********************************************
 # fft0: Breathing    fft1: Heart Rate (200points)
 #**********************************************
+'''
 p0 = win.addPlot()
 p0.setRange(xRange=[0,40],yRange=[0,2])
 p0.setLabel('bottom', 'Breathing Rate FFT(ft0)', 'bpm')
@@ -134,6 +131,7 @@ text_hr_rt = pg.TextItem("", anchor=(0.5, 1.7),color = 'y')
 text_hr_rt.setParentItem(curvePoint_hr_rt)
 arrow1 = pg.ArrowItem(angle=270)
 arrow1.setParentItem(curvePoint_hr_rt)
+'''
 #*******************************
 
 
@@ -207,12 +205,13 @@ curve_cd = p6.plot(cd6)
 #######################################
 # range profile: Points= 64 points
 #######################################
+'''
 p7 = win.addPlot(colspan=1)
 p7.setLabel('bottom', 'Range Profile(rp7)', 'y:RCS x:cm')
 p7t = np.linspace(0.3,0.9,19)
 p7.setRange(xRange=[0.3,0.9])
 curve_rp = p7.plot(rp7)
-
+'''
 def update_indata():
 	global p6t,br0,hr1,maxlen,cd6,rp7
 	curve_cd.setData(p6t,cd6)
@@ -293,7 +292,7 @@ def vtsExec():
 			
 			#-----------breathing rate--------------------
 			#(3.0)breathing rate bandpass filter
-			br0 = signal.filtfilt(b, a, cd6) # b：濾波器的分子係數向量。 a：濾波器的分母係數向量。如果a[0]不為1，則a和b都通過a[0]。 cd6：要過濾的數據數組。
+			br0 = signal.filtfilt(b, a, cd6) # 快速實現信號濾波。 b：濾波器的分子係數向量。 a：濾波器的分母係數向量。如果a[0]不為1，則a和b都通過a[0]。 cd6：要過濾的數據數組。
 			#(3.0.1) remove DC level
 			br0d = np.diff(br0) # 沿著指定軸計算第N維的離散差值。 a：輸入矩陣。 n：可選 代表要執行幾次差值。 axis：默認是最後一個
 			br0d = np.append(br0d,0.0)
@@ -302,7 +301,7 @@ def vtsExec():
 	
 			#-----------heart rate ---------
 			#(3.1)heart rate bandpass filter
-			hr1 = signal.filtfilt(b1, a1, cd6) # b：濾波器的分子係數向量。 a：濾波器的分母係數向量。如果a[0]不為1，則a和b都通過a[0]。 cd6：要過濾的數據數組。
+			hr1 = signal.filtfilt(b1, a1, cd6) # 快速實現信號濾波。 b：濾波器的分子係數向量。 a：濾波器的分母係數向量。如果a[0]不為1，則a和b都通過a[0]。 cd6：要過濾的數據數組。
 			#(3.1.1) windowing
 			hrw1 = hr1 * tukwd # 沿著指定軸計算第N維的離散差值。 a：輸入矩陣。 n：可選 代表要執行幾次差值。 axis：默認是最後一個
 			#print("vd.conf  br:{:f}   hr:{:f}".format(vd.outputFilterBreathOut ,vd.outputFilterHeartOut ) )
@@ -330,8 +329,6 @@ def vtsExec():
 			#mainwindow.lex.setText("execTime:{}".format( ct-pt))	
 			#mainwindow.l1.setText("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d} execTime:{}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			print("HR:{:.4f} BR:{:.4f} flag:{}".format(gv.hr,gv.br,vd.motionDetectedFlag ))
-			with open(txtPath, 'a') as f: # 紀錄
-				f.write("HR:{:.4f} BR:{:.4f} flag:{}\r\n".format(gv.hr,gv.br,vd.motionDetectedFlag ))
 
 		 
 def uartThread(name):
