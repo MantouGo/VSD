@@ -103,7 +103,6 @@ rp7  = np.zeros(64)
 #**********************************************
 # fft0: Breathing    fft1: Heart Rate (200points)
 #**********************************************
-'''
 p0 = win.addPlot()
 p0.setRange(xRange=[0,40],yRange=[0,2])
 p0.setLabel('bottom', 'Breathing Rate FFT(ft0)', 'bpm')
@@ -131,7 +130,7 @@ text_hr_rt = pg.TextItem("", anchor=(0.5, 1.7),color = 'y')
 text_hr_rt.setParentItem(curvePoint_hr_rt)
 arrow1 = pg.ArrowItem(angle=270)
 arrow1.setParentItem(curvePoint_hr_rt)
-'''
+
 #*******************************
 
 
@@ -205,13 +204,13 @@ curve_cd = p6.plot(cd6)
 #######################################
 # range profile: Points= 64 points
 #######################################
-'''
+
 p7 = win.addPlot(colspan=1)
 p7.setLabel('bottom', 'Range Profile(rp7)', 'y:RCS x:cm')
 p7t = np.linspace(0.3,0.9,19)
 p7.setRange(xRange=[0.3,0.9])
 curve_rp = p7.plot(rp7)
-'''
+
 def update_indata():
 	global p6t,br0,hr1,maxlen,cd6,rp7
 	curve_cd.setData(p6t,cd6)
