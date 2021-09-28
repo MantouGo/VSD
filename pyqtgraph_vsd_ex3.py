@@ -244,7 +244,7 @@ timer.start(250) # 80: got(20 Times)   *50ms from uart:
 # UART initial
 #jetson nano by chiu-chien-feng
 try:
-	port = serial.Serial("/dev/ttyTHS1",baudrate = 115200,timeout = 0.5)
+	port = serial.Serial("/dev/ttyTHS1",baudrate = 921600,timeout = 0.5)
 
 except KeyboardInterrupt:
     print("Exiting Program")
