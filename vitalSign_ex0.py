@@ -88,9 +88,11 @@ def uartGetTLVdata(name):
 				with open(txtPath, 'a') as f:
 					f.write("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			'''
-	dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
-	df = pd.DataFrame(dict)
-	df.to_csv('test.csv')
+		else:
+			dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
+			df = pd.DataFrame(dict)
+			df.to_csv('test.csv')
+
 
 uartGetTLVdata("VitalSign")
 
