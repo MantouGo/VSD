@@ -74,6 +74,8 @@ class MainWindow(QMainWindow):
         self.lhr.setText("Heart Rate")
         
         self.lhr.move(300,75)
+        #self.p0.setVisible(False)
+        #self.p1.setVisible(False)
 
 class globalV:
 	count = 0
@@ -106,12 +108,14 @@ rp7  = np.zeros(64)
 p0 = win.addPlot()
 p0.setRange(xRange=[0,40],yRange=[0,2])
 p0.setLabel('bottom', 'Breathing Rate FFT(ft0)', 'bpm')
+p0.setVisible(False)
 br2t = np.linspace(0,600,100)
 curve_ft0 = p0.plot(ft0)
 
 p1 = win.addPlot()
 p1.setRange(xRange=[0,200],yRange=[0,2])
 p1.setLabel('bottom', 'Heart Rate FFT(ft1)', 'bpm')
+p1.setVisible(False)
 hr2t = np.linspace(0,600,100)
 curve_ft1 = p1.plot(ft1)
 
