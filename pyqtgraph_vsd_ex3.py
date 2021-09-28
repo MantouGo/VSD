@@ -203,8 +203,9 @@ p6 = win.addPlot(colspan=1)
 p6.setLabel('bottom', 'Chest Displacement(cd6)', 'unit:sec')
 p6.setRange(xRange=(0,10))
 p6t= np.linspace(0,10,200) # 用於產生 x1, x2 之間的N點 行線性的矢量
-p6.setFixedWidth(600)
-p6.setFixedHeight(120)
+p6.setAlignment(Qt.AlignCenter)
+#p6.setFixedWidth(600)
+#p6.setFixedHeight(120)
 curve_cd = p6.plot(cd6)
 
 #######################################
