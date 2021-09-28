@@ -72,13 +72,13 @@ def uartGetTLVdata(name):
 			gv.hr = vd.heartRateEst_FFT
 			h_list.append(round(gv.hr, 4))
 			b_list.append(round(gv.br, 4))
-			t_list.appemd(round(ct-pt,3))
+			t_list.append(ct-pt)
 			# 紀錄CSV
 			dict = {'Heart Rate:': h_list, 'Breath Rate': b_list, 'Time': t_list}
 			df = pd.DataFrame(dict)
 			df.to_csv('test.csv')
 			#
-			#print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
+			print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
 			##print("RangeBuf Length:{:d}".format(len(rangeBuf)))
 			#print(rangeBuf)
