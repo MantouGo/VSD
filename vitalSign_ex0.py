@@ -78,20 +78,21 @@ def uartGetTLVdata(name):
 			h_list.append(round(gv.br, 4))
 			b_list.append(round(gv.hr, 4))
 			##vswriter.writerow(['breathingRateEst_FFT','heartRateEst_FFT'])
+			dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
+			df = pd.DataFrame(dict)
+			df.to_csv('test.csv')
 			print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
 			##print("RangeBuf Length:{:d}".format(len(rangeBuf)))
-			print(rangeBuf)
+			#print(rangeBuf)
 			'''
 				# ----- 記錄測量結果 -----#
 
 				with open(txtPath, 'a') as f:
 					f.write("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			'''
-		else:
-			dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
-			df = pd.DataFrame(dict)
-			df.to_csv('test.csv')
+		#else:
+
 
 
 uartGetTLVdata("VitalSign")
