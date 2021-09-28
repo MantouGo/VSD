@@ -65,7 +65,6 @@ def uartGetTLVdata(name):
 		pt = datetime.datetime.now()
 		(dck , vd, rangeBuf) = vts.tlvRead(False)
 		vs = vts.getHeader()
-		vs.frameNumber = 0  # 初始化
 		if dck:
 
 			ct = datetime.datetime.now()
@@ -83,7 +82,7 @@ def uartGetTLVdata(name):
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
 			##print("RangeBuf Length:{:d}".format(len(rangeBuf)))
 			#print(rangeBuf)
-
+	vs.frameNumber = 0  # 初始化
 uartGetTLVdata("VitalSign")
 
 

@@ -57,11 +57,17 @@ class globalV:
 		self.count = count
 		
 		
-#UART initial
-try:    #pi 3
-	port = serial.Serial("/dev/ttyS0",baudrate = 921600, timeout = 0.5)
-except: #pi 2
-	port = serial.Serial("/dev/ttyAMA0",baudrate = 921600, timeout = 0.5)
+# UART initial
+#jetson nano by chiu-chien-feng
+try:
+	port = serial.Serial("/dev/ttyTHS1",baudrate = 921600,timeout = 0.5)
+
+except KeyboardInterrupt:
+    print("Exiting Program")
+
+except Exception as exception_error:
+    print("Error occurred. Exiting Program")
+    print("Error"+str(exception_error))
 
 gv = globalV(0)
 

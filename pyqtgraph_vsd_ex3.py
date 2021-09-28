@@ -241,11 +241,19 @@ timer.start(250) # 80: got(20 Times)   *50ms from uart:
 #use USB-UART
 #for rpi
 #port = serial.Serial("/dev/ttyUSB0",baudrate = 921600, timeout = 0.5)
-#for jetson nano
-port = serial.Serial("/dev/ttyTHS1",baudrate = 921600, timeout = 0.5)
-#for MAC os
-#port = serial.Serial("/dev/tty.usbmodemGY0052524",baudrate = 921600, timeout = 0.5)
-#UART initial
+
+# UART initial
+#jetson nano by chiu-chien-feng
+try:
+	port = serial.Serial("/dev/ttyTHS1",baudrate = 115200,timeout = 0.5)
+
+except KeyboardInterrupt:
+    print("Exiting Program")
+
+except Exception as exception_error:
+    print("Error occurred. Exiting Program")
+    print("Error"+str(exception_error))
+#
 
 #vital sign setup
 gv = globalV(0)
