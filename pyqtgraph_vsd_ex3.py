@@ -107,13 +107,13 @@ p0 = win.addPlot()
 p0.setRange(xRange=[0,40],yRange=[0,2])
 p0.setLabel('bottom', 'Breathing Rate FFT(ft0)', 'bpm')
 br2t = np.linspace(0,600,100)
-curve_ft0 = p0.plot(ft0,False)
+curve_ft0 = p0.plot(ft0)
 
 p1 = win.addPlot()
 p1.setRange(xRange=[0,200],yRange=[0,2])
 p1.setLabel('bottom', 'Heart Rate FFT(ft1)', 'bpm')
 hr2t = np.linspace(0,600,100)
-curve_ft1 = p1.plot(ft1,False)
+curve_ft1 = p1.plot(ft1)
 
 ## Set up an animated arrow and text that track the curve
 # Breathing rate
