@@ -108,14 +108,14 @@ rp7  = np.zeros(64)
 p0 = win.addPlot()
 p0.setRange(xRange=[0,40],yRange=[0,2])
 p0.setLabel('bottom', 'Breathing Rate FFT(ft0)', 'bpm')
-p0.setVisible(False)
+p0.setVisible(False) # True/False
 br2t = np.linspace(0,600,100)
 curve_ft0 = p0.plot(ft0)
 
 p1 = win.addPlot()
 p1.setRange(xRange=[0,200],yRange=[0,2])
 p1.setLabel('bottom', 'Heart Rate FFT(ft1)', 'bpm')
-p1.setVisible(False)
+p1.setVisible(False) # True/False
 hr2t = np.linspace(0,600,100)
 curve_ft1 = p1.plot(ft1)
 
@@ -123,14 +123,14 @@ curve_ft1 = p1.plot(ft1)
 # Breathing rate
 curvePoint_br_rt = pg.CurvePoint(curve_ft0) 
 p0.addItem(curvePoint_br_rt)
-text_br_rt = pg.TextItem("", anchor=(0.5, 1.7),color = 'y')
+text_br_rt = pg.TextItem("", anchor=(0.5, 1.7),color = 'b')
 text_br_rt.setParentItem(curvePoint_br_rt)
 arrow0 = pg.ArrowItem(angle=270)
 arrow0.setParentItem(curvePoint_br_rt)
 # Heart rate
 curvePoint_hr_rt = pg.CurvePoint(curve_ft1)
 p1.addItem(curvePoint_hr_rt)
-text_hr_rt = pg.TextItem("", anchor=(0.5, 1.7),color = 'y')
+text_hr_rt = pg.TextItem("", anchor=(0.5, 1.7),color = 'r')
 text_hr_rt.setParentItem(curvePoint_hr_rt)
 arrow1 = pg.ArrowItem(angle=270)
 arrow1.setParentItem(curvePoint_hr_rt)
@@ -203,6 +203,8 @@ p6 = win.addPlot(colspan=1)
 p6.setLabel('bottom', 'Chest Displacement(cd6)', 'unit:sec')
 p6.setRange(xRange=(0,10))
 p6t= np.linspace(0,10,200) # 用於產生 x1, x2 之間的N點 行線性的矢量
+p6.setFixedWidth(600)
+p6.setFixedHeight(120)
 curve_cd = p6.plot(cd6)
 
 #######################################
@@ -213,6 +215,7 @@ p7 = win.addPlot(colspan=1)
 p7.setLabel('bottom', 'Range Profile(rp7)', 'y:RCS x:cm')
 p7t = np.linspace(0.3,0.9,19)
 p7.setRange(xRange=[0.3,0.9])
+p7.setVisible(False) # True/False
 curve_rp = p7.plot(rp7)
 
 def update_indata():
