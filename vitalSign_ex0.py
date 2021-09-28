@@ -23,7 +23,6 @@ import csv
 import numpy as np
 import pandas as pd
 from mmWave import vitalsign
-
 # 開啟輸入的csv file
 '''
 with open('output.csv', 'w', newline='') as csvfile:
@@ -31,15 +30,15 @@ with open('output.csv', 'w', newline='') as csvfile:
 	vswriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 	# 寫入資料
 '''
-
+b_list = [] # breath list
+h_list = [] # heart list
 class globalV:
 	count = 0
 	hr = 0.0
 	br = 0.0
 	def __init__(self, count):
 		self.count = count
-b_list = [] # breath list
-h_list = [] # heart list
+
 # UART initial
 #jetson nano by chiu-chien-feng
 try:
@@ -66,39 +65,31 @@ def uartGetTLVdata(name):
 	ct = datetime.datetime.now()
 	port.flushInput()
 	while True:
-		#mmWave/VitalSign tlvRead & Vital Sign 
-		#print(datetime.datetime.now().time())
+		# mmWave/VitalSign tlvRead & Vital Sign
+		# print(datetime.datetime.now().time())
 		pt = datetime.datetime.now()
 		(dck , vd, rangeBuf) = vts.tlvRead(False)
 		vs = vts.getHeader()
-		#vts.showHeader()
 
 		if dck:
 			ct = datetime.datetime.now()
 			gv.br = vd.breathingRateEst_FFT
 			gv.hr = vd.heartRateEst_FFT
-			h_list.append(gv.br)
-			b_list.append(gv.hr)
+			h_list.append(round(gv.br, 4))
+			b_list.append(round(gv.hr, 4))
 			##vswriter.writerow(['breathingRateEst_FFT','heartRateEst_FFT'])
-
-
 			##print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
-			# ----- 記錄測量結果 -----#
-			'''
-			with open(txtPath, 'a') as f:
-				f.write("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
-			'''
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
-			'''
-			print("EST FFT:{0:.4f}".format(vd.heartRateEst_FFT))
-			print("EST FFT 4Hz:{0:.4f}".format(vd.heartRateEst_FFT_4Hz))
-			print("EST FFT xCorr:{0:.4f}".format(vd.heartRateEst_FFT_4Hz))
-			print("Confi Heart Out:{0:.4f}".format(vd.confidenceMetricHeartOut))
-			print("Confi Heart O 4Hz:{0:.4f}".format(vd.confidenceMetricHeartOut_4Hz))
-			print("Confi Heart O xCorr:{0:.4f}".format(vd.confidenceMetricHeartOut_xCorr))
-			'''
 			##print("RangeBuf Length:{:d}".format(len(rangeBuf)))
 			##print(rangeBuf)
+			'''
+				# ----- 記錄測量結果 -----#
+
+				with open(txtPath, 'a') as f:
+					f.write("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
+			'''
+		else:
+			break;
 	dict = {'breathingRateEst_FFT': h_list, 'heartRateEst_FFT': b_list}
 	df = pd.DataFrame(dict)
 	df.to_csv('test.csv')
