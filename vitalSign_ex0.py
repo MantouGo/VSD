@@ -66,7 +66,6 @@ def uartGetTLVdata(name):
 		(dck , vd, rangeBuf) = vts.tlvRead(False)
 		vs = vts.getHeader()
 		if dck:
-
 			ct = datetime.datetime.now()
 			gv.br = vd.breathingRateEst_FFT
 			gv.hr = vd.heartRateEst_FFT
@@ -77,12 +76,13 @@ def uartGetTLVdata(name):
 			dict = {'Heart Rate:': h_list, 'Breath Rate': b_list, 'Time': t_list}
 			df = pd.DataFrame(dict)
 			df.to_csv('test.csv')
+
 			#
 			print("Heart Rate:{:.4f} Breath Rate:{:.4f} #:{:d}  {}".format(gv.hr,gv.br,vs.frameNumber, ct-pt))
 			#print("Filter OUT:{0:.4f}".format(vd.outputFilterHeartOut))
 			##print("RangeBuf Length:{:d}".format(len(rangeBuf)))
 			#print(rangeBuf)
-	vs.frameNumber = 0  # 初始化
+
 uartGetTLVdata("VitalSign")
 
 
