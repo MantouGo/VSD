@@ -112,7 +112,7 @@ curve_ft1 = p1.plot(ft1)
 # Breathing rate
 curvePoint_br_rt = pg.CurvePoint(curve_ft0)
 p0.addItem(curvePoint_br_rt)
-text_br_rt = pg.TextItem("", anchor=(0.5, 1.7), color = 'b')
+text_br_rt = pg.TextItem("", anchor=(0.5, 1.7), color = 'g')
 text_br_rt.setParentItem(curvePoint_br_rt)
 arrow0 = pg.ArrowItem(angle=270)
 arrow0.setParentItem(curvePoint_br_rt)
@@ -166,11 +166,11 @@ def update_fft():
 win.nextRow()
 p2 = win.addPlot()
 p2.setLabel('bottom', 'Breathing Rate(windowing[brw0])', 'unit:sec')
-curve_brw = p2.plot(brw0, pen = pg.mkPen('b'))
+curve_brw = p2.plot(brw0, pen = pg.mkPen('g'))
 
 p3 = win.addPlot()
 p3.setLabel('bottom', 'Heart Rate(windowing[hrw1])', 'unit:sec')
-curve_hrw = p3.plot(hrw1, pen = pg.mkPen('y'))
+curve_hrw = p3.plot(hrw1, pen = pg.mkPen('r'))
 p23t = np.linspace(0, 10, 200)
 
 
@@ -186,12 +186,12 @@ def update_windowing():
 win.nextRow()
 p4 = win.addPlot()
 p4.setLabel('bottom', 'Breathing Rate(br0)', 'unit:point')
-curve_br = p4.plot(br0, pen = pg.mkPen('b'))
+curve_br = p4.plot(br0, pen = pg.mkPen('g'))
 
 p5 = win.addPlot()
 p5.setLabel('bottom', 'Heart Rate(hr1)', 'unit:point')
 #curve_hr = p5.plot(hr1)
-curve_hr = p5.plot(hr1, pen = pg.mkPen('y'))
+curve_hr = p5.plot(hr1, pen = pg.mkPen('r'))
 
 # ***************************************
 # (original) Chest Displacement: Points= 200 points
