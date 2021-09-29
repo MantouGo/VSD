@@ -90,7 +90,7 @@ win = pg.GraphicsWindow()
 
 pg.setConfigOption('foreground', 'y')
 win.setWindowTitle('Vital Sign Demo')
-win.setColor(QPalette.Background, Qt.white)
+pg.setConfigOption('background', 'w')
 #------------------------------------------
 #**********************************************
 # fft0: Breathing    fft1: Heart Rate (200points)
