@@ -88,10 +88,9 @@ rp7 = np.zeros(64)
 # -----------------------------------------
 win = pg.GraphicsWindow()
 
-pg.setConfigOption('background', '#FFFFFF')
-#pg.setConfigOption('background', 'w')
-pg.setConfigOption('foreground', 'y')
+pg.setConfigOption('foreground', '#000000')
 win.setWindowTitle('Vital Sign Demo')
+win.setBackground('w')
 #------------------------------------------
 #**********************************************
 # fft0: Breathing    fft1: Heart Rate (200points)
@@ -203,7 +202,7 @@ p6 = win.addPlot(colspan=1)
 p6.setLabel('bottom', 'Chest Displacement(cd6)', 'unit:sec')
 p6.setRange(xRange=(0, 10))
 p6t = np.linspace(0, 10, 200)  # 用於產生 x1, x2 之間的N點 行線性的矢量
-curve_cd = p6.plot(cd6)
+curve_cd = p6.plot(cd6, pen = pg.mkPen('g'))
 
 def update_indata():
     global p6t, br0, hr1, maxlen, cd6
