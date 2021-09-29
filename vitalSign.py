@@ -88,9 +88,10 @@ rp7 = np.zeros(64)
 # -----------------------------------------
 win = pg.GraphicsWindow()
 
+pg.setConfigOption('background', '#FFFFFF')
+#pg.setConfigOption('background', 'w')
 pg.setConfigOption('foreground', 'y')
 win.setWindowTitle('Vital Sign Demo')
-pg.setConfigOption('background', '#FFFFFF')
 #------------------------------------------
 #**********************************************
 # fft0: Breathing    fft1: Heart Rate (200points)
