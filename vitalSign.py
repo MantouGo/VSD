@@ -260,41 +260,42 @@ def vtsExec():
         # # (0)insert chest Displacement
         # #
         # # shift left and insert
-        # cd6[:-1] = cd6[1:]
-        # cd6[-1] = vd.unwrapPhasePeak_mm
-    if True:
-        pt = datetime.datetime.now()
+        cd6[:-1] = cd6[1:]
+        cd6[-1] = vd.unwrapPhasePeak_mm
+        
+        if True:
+            pt = datetime.datetime.now()
 
-        # -----------breathing rate--------------------
-        # (3.0)breathing rate bandpass filter
-        br0 = signal.filtfilt(b, a, cd6)  # 快速實現信號濾波。 b：濾波器的分子係數向量。 a：濾波器的分母係數向量。如果a[0]不為1，則a和b都通過a[0]。 cd6：要過濾的數據數組。
-        # (3.0.1) remove DC level
-        br0d = np.diff(br0)  # 沿著指定軸計算第N維的離散差值。 a：輸入矩陣。 n：可選 代表要執行幾次差值。 axis：默認是最後一個
-        br0d = np.append(br0d, 0.0)
-        # (3.0.2) windowing
-        brw0 = br0d * tukwd
-        # -----------heart rate ---------
-        # (3.1)heart rate bandpass filter
-        hr1 = signal.filtfilt(b1, a1, cd6)  # 快速實現信號濾波。 b：濾波器的分子係數向量。 a：濾波器的分母係數向量。如果a[0]不為1，則a和b都通過a[0]。 cd6：要過濾的數據數組。
-        # (3.1.1) windowing
-        hrw1 = hr1 * tukwd  # 沿著指定軸計算第N維的離散差值。 a：輸入矩陣。 n：可選 代表要執行幾次差值。 axis：默認是最後一個
-        # print("vd.conf  br:{:f}   hr:{:f}".format(vd.outputFilterBreathOut ,vd.outputFilterHeartOut ) )
+            # -----------breathing rate--------------------
+            # (3.0)breathing rate bandpass filter
+            br0 = signal.filtfilt(b, a, cd6)  # 快速實現信號濾波。 b：濾波器的分子係數向量。 a：濾波器的分母係數向量。如果a[0]不為1，則a和b都通過a[0]。 cd6：要過濾的數據數組。
+            # (3.0.1) remove DC level
+            br0d = np.diff(br0)  # 沿著指定軸計算第N維的離散差值。 a：輸入矩陣。 n：可選 代表要執行幾次差值。 axis：默認是最後一個
+            br0d = np.append(br0d, 0.0)
+            # (3.0.2) windowing
+            brw0 = br0d * tukwd
+            # -----------heart rate ---------
+            # (3.1)heart rate bandpass filter
+            hr1 = signal.filtfilt(b1, a1, cd6)  # 快速實現信號濾波。 b：濾波器的分子係數向量。 a：濾波器的分母係數向量。如果a[0]不為1，則a和b都通過a[0]。 cd6：要過濾的數據數組。
+            # (3.1.1) windowing
+            hrw1 = hr1 * tukwd  # 沿著指定軸計算第N維的離散差值。 a：輸入矩陣。 n：可選 代表要執行幾次差值。 axis：默認是最後一個
+            # print("vd.conf  br:{:f}   hr:{:f}".format(vd.outputFilterBreathOut ,vd.outputFilterHeartOut ) )
 
-        # ---- fft ---------------
-        # you can select better FFT function to get better result
-        #
-        # (3.0.3)breathing fft
-        yf0 = fft(brw0)  # 快速傅立葉轉換 返回brw0中每一列向量的傅立葉轉換。
-        ft0 = np.abs(yf0[0:200 // 2])  # 將array各元素取絕對值，然后返回取絕對值的array
-        ft0 = ft0 / np.amax(ft0)
+            # ---- fft ---------------
+            # you can select better FFT function to get better result
+            #
+            # (3.0.3)breathing fft
+            yf0 = fft(brw0)  # 快速傅立葉轉換 返回brw0中每一列向量的傅立葉轉換。
+            ft0 = np.abs(yf0[0:200 // 2])  # 將array各元素取絕對值，然后返回取絕對值的array
+            ft0 = ft0 / np.amax(ft0)
 
-        # (3.0.4)heart rate fft
-        yf1 = fft(hrw1)  # 快速傅立葉轉換 返回hrw1中每一列向量的傅立葉轉換。
-        ft1 = np.abs(yf1[0:200 // 2])
-        ft1 = ft1 / np.amax(ft1)
+            # (3.0.4)heart rate fft
+            yf1 = fft(hrw1)  # 快速傅立葉轉換 返回hrw1中每一列向量的傅立葉轉換。
+            ft1 = np.abs(yf1[0:200 // 2])
+            ft1 = ft1 / np.amax(ft1)
 
-        ct = datetime.datetime.now()
-        print("HR:{:.4f} BR:{:.4f} flag:{}".format(gv.hr, gv.br, vd.motionDetectedFlag))
+            ct = datetime.datetime.now()
+            print("HR:{:.4f} BR:{:.4f} flag:{}".format(gv.hr, gv.br, vd.motionDetectedFlag))
 
 
 # 執行緒去處理
