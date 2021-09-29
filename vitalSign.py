@@ -90,6 +90,7 @@ win = pg.GraphicsWindow()
 
 pg.setConfigOption('foreground', 'y')
 win.setWindowTitle('Vital Sign Demo')
+win.setColor(QPalette.Background, Qt.white)
 #------------------------------------------
 #**********************************************
 # fft0: Breathing    fft1: Heart Rate (200points)
@@ -112,7 +113,7 @@ curve_ft1 = p1.plot(ft1)
 # Breathing rate
 curvePoint_br_rt = pg.CurvePoint(curve_ft0)
 p0.addItem(curvePoint_br_rt)
-text_br_rt = pg.TextItem("", anchor=(0.5, 1.7), color = 'g')
+text_br_rt = pg.TextItem("", anchor=(0.5, 1.7), color = 'b')
 text_br_rt.setParentItem(curvePoint_br_rt)
 arrow0 = pg.ArrowItem(angle=270)
 arrow0.setParentItem(curvePoint_br_rt)
@@ -126,7 +127,7 @@ text_hr_rt = pg.TextItem("", anchor=(0.5, 1.7), color = 'r')
 text_hr_rt.setParentItem(curvePoint_hr_rt)
 arrow1 = pg.ArrowItem(angle=270)
 arrow1.setParentItem(curvePoint_hr_rt)
-pg.mkPen('y')
+pg.mkPen('r')
 
 #===============================================================
 # 分隔線
@@ -166,7 +167,7 @@ def update_fft():
 win.nextRow()
 p2 = win.addPlot()
 p2.setLabel('bottom', 'Breathing Rate(windowing[brw0])', 'unit:sec')
-curve_brw = p2.plot(brw0, pen = pg.mkPen('g'))
+curve_brw = p2.plot(brw0, pen = pg.mkPen('b'))
 
 p3 = win.addPlot()
 p3.setLabel('bottom', 'Heart Rate(windowing[hrw1])', 'unit:sec')
@@ -186,7 +187,7 @@ def update_windowing():
 win.nextRow()
 p4 = win.addPlot()
 p4.setLabel('bottom', 'Breathing Rate(br0)', 'unit:point')
-curve_br = p4.plot(br0, pen = pg.mkPen('g'))
+curve_br = p4.plot(br0, pen = pg.mkPen('b'))
 
 p5 = win.addPlot()
 p5.setLabel('bottom', 'Heart Rate(hr1)', 'unit:point')
