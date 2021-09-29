@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         QMainWindow.__init__(self, parent)
 
-        self.setFixedSize(600, 180)
+        self.setFixedSize(600, 160)
         self.l0 = QLabel(self)
         self.l0.setFixedWidth(300)
         self.l0.setFixedHeight(40)
@@ -65,7 +65,7 @@ class MainWindow(QMainWindow):
         self.lhr.setFont(QFont("Roman times", 50, QFont.Bold))
         self.lhr.setText("Heart Rate")
 
-        self.lhr.move(200, 65)
+        self.lhr.move(300, 65)
 
 class globalV:
     count = 0
@@ -117,6 +117,7 @@ text_br_rt.setParentItem(curvePoint_br_rt)
 arrow0 = pg.ArrowItem(angle=270)
 arrow0.setParentItem(curvePoint_br_rt)
 pen = pg.mkPen(color=(0, 0, 255))
+
 
 # Heart rate
 curvePoint_hr_rt = pg.CurvePoint(curve_ft1)
@@ -262,7 +263,7 @@ def vtsExec():
         # # shift left and insert
         cd6[:-1] = cd6[1:]
         cd6[-1] = vd.unwrapPhasePeak_mm
-        
+
         if True:
             pt = datetime.datetime.now()
 
