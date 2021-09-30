@@ -198,7 +198,7 @@ curve_hr = p5.plot(hr1, pen = pg.mkPen('r'))
 # (original) Chest Displacement: Points= 200 points
 # ***************************************
 win.nextRow()
-p6 = win.addPlot()
+p6 = win.addPlot(colspan=1)
 p6.setLabel('bottom', 'Chest Displacement(cd6)', 'unit:sec')
 p6.setRange(xRange=(0, 10))
 p6t = np.linspace(0, 10, 200)  # 用於產生 x1, x2 之間的N點 行線性的矢量
