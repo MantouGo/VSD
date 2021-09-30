@@ -1,18 +1,14 @@
-''' 
+'''
 vital: Vital Signs : 2018/12/10 15:47
-
-
 **** if error founded ******
 Traceback (most recent call last):
   File "vitalSign_BH_ex2_Thread_intr18.py", line 74, in <module>
     GPIO.add_event_detect(18, GPIO.RISING,my_callback)
 RuntimeError: Failed to add edge detection
-
 *** plesae use the following command to clear this error ****
-
-~#gpio unexport 18 
-
+~#gpio unexport 18
 '''
+
 import os
 import serial
 import time
@@ -58,11 +54,9 @@ class globalV:
 		self.count = count
 		
 		
-# UART initial
-#jetson nano by chiu-chien-feng
+#UART initial
 try:
 	port = serial.Serial("/dev/ttyTHS1",baudrate = 921600,timeout = 0.5)
-
 except KeyboardInterrupt:
     print("Exiting Program")
 
@@ -144,11 +138,3 @@ def uartIntr(name):
 port.flushInput()
 window.mainloop()
 GPIO.cleanup()
-
-
-
-
-
-
-
-
